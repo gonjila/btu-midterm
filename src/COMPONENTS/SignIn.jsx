@@ -7,8 +7,7 @@ import { userContext } from '../CONTEXT/UsersContext';
 const SignIn = () => {
     const history = useHistory();
 
-    const { user, setIsVerified } = useContext(userContext);
-    const initialValue = { email: '', password: '' };
+    const { user, setIsVerified, initialValue } = useContext(userContext);
 
     function debounce(func, timeout = 500) {
         let timer;
@@ -26,24 +25,23 @@ const SignIn = () => {
 
     const emailWhenSubmit = debounce(event => {
         initialValue.email = event.target.value;
+        console.log(initialValue);
     }, 2000);
     const passwordWhenSubmit = debounce(event => {
         initialValue.password = event.target.value;
+        console.log(initialValue);
     }, 500);
 
     const onSignInClick = () => {
         for (let i = 0; i < user.length; i++) {
             if (user[i].email === initialValue.email && user[i].password === initialValue.password) {
                 setIsVerified(true);
-                history.push('/');
+                history.push('/home');
+                break;
             } else if (i === user.length - 1) {
                 alert('Email or Password is incorect!');
             }
         }
-    };
-
-    const onBackClick = () => {
-        history.push('/');
     };
 
     return (
@@ -60,13 +58,9 @@ const SignIn = () => {
                     <label htmlFor='Remember me'>Remember me</label>
                 </div>
             </div>
-            <button id='submitButton' type='submit' onClick={onSignInClick}>
+            <button id='submitButton' type='button' onClick={onSignInClick}>
                 Sign in
             </button>
-            <div id='back' onClick={onBackClick}>
-                <img alt='' src='' />
-                <button>back</button>
-            </div>
         </Container>
     );
 };
@@ -126,14 +120,5 @@ const Container = styled.form`
         color: white;
         background-color: #0d6efd;
         border: none;
-    }
-
-    #back {
-        position: absolute;
-        left: 50px;
-        top: 50px;
-
-        button {
-        }
     }
 `;

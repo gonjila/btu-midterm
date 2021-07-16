@@ -1,16 +1,27 @@
 import styled from 'styled-components';
-import Navigation from './Navigation';
+import { useEffect } from 'react';
 
-const Home = () => {
+import Navigation from './Navigation';
+import BooksApi from '../SERVICES/BooksApi';
+
+const Books = () => {
+    const LoadBooks = async () => {
+        const booksList = await BooksApi({ quantity: 10, characters: 500 });
+    };
+
+    useEffect(() => {
+        LoadBooks();
+    }, []);
+
     return (
         <Container>
             <Navigation />
-            <Page>haloo</Page>
+            <Page>Books</Page>
         </Container>
     );
 };
 
-export default Home;
+export default Books;
 
 const Container = styled.div`
     display: flex;

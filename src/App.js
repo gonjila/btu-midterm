@@ -1,9 +1,11 @@
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 
-import Home from './COMPONENTS/Home';
-import SignIn from './COMPONENTS/SignIn';
 import UsersProviderComponent from './CONTEXT/UsersContext';
+import Home from './COMPONENTS/Home';
+import Addresses from './COMPONENTS/Addresses';
+import Books from './COMPONENTS/Books';
+import SignIn from './COMPONENTS/SignIn';
 import Profile from './COMPONENTS/Profile';
 
 function App() {
@@ -11,11 +13,19 @@ function App() {
         <Container>
             <UsersProviderComponent>
                 <Switch>
-                    <Route exact path='/'>
+                    <Route path='/home'>
                         <Home />
                     </Route>
 
-                    <Route path='/signin'>
+                    <Route path='/address'>
+                        <Addresses />
+                    </Route>
+
+                    <Route path='/books'>
+                        <Books />
+                    </Route>
+
+                    <Route exact={true} path='/'>
                         <SignIn />
                     </Route>
 
