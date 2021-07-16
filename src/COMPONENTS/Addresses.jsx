@@ -8,6 +8,17 @@ import { useEffect } from 'react';
 const Addresses = () => {
     const [itemsNumber, setItmsNumber] = useState(10);
     const [addresses, setAddresses] = useState([]);
+    const [oldAddresses, setOldAddresses] = useState([]);
+
+    function debounce(func, timeout = 500) {
+        let timer;
+        return (...args) => {
+            clearTimeout(timer);
+            timer = setTimeout(() => {
+                func.apply(this, args);
+            }, timeout);
+        };
+    }
 
     const onSelectChange = event => {
         setItmsNumber(event.target.value);
@@ -16,20 +27,31 @@ const Addresses = () => {
     //elodeba monacemebis chamotvirtvas
     const loadAddresses = async () => {
         const addressList = await AddressApi({ quantity: itemsNumber });
+
         setAddresses(addressList);
+        setOldAddresses(addressList);
     };
 
     useEffect(() => {
         loadAddresses();
     }, [itemsNumber]);
 
+    const onSearch = debounce(({ target }) => {
+        const filteredAddresses = oldAddresses.filter(
+            item =>
+                item.country.toLowerCase().includes(target.value.toLowerCase()) ||
+                item.city.toLowerCase().includes(target.value.toLowerCase())
+        );
+        setAddresses(filteredAddresses);
+    }, 900);
+
     return (
         <Container>
             <Navigation />
             <Page>
                 <div id='ragac'>
-                    <input type='text' placeholder='Filter for City or Country' />
-                    <select onChange={onSelectChange}>
+                    <input type='text' placeholder='Filter for City or Country' onChange={onSearch} />
+                    <select title='Quantity' onChange={onSelectChange}>
                         <option value={10}>10</option>
                         <option value={20}>20</option>
                         <option value={30}>30</option>
@@ -61,6 +83,7 @@ const Container = styled.div`
 `;
 
 const Page = styled.div`
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -83,8 +106,8 @@ const ComponentWrapper = styled.div`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    align-items: center;
-    justify-content: space-around;
+    align-items: baseline;
+    justify-content: baseline;
     overflow-y: scroll;
 `;
 
