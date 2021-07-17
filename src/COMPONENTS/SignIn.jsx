@@ -120,5 +120,8 @@ const Container = styled.form`
         color: white;
         background-color: #0d6efd;
         border: none;
+        &:active {
+            box-shadow: rgba(0, 0, 0, 0.35) 2px 2px 5px 0px inset;
+        }
     }
 `;

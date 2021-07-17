@@ -34,6 +34,7 @@ const Addresses = () => {
 
     useEffect(() => {
         loadAddresses();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [itemsNumber]);
 
     const onSearch = debounce(({ target }) => {
@@ -57,7 +58,7 @@ const Addresses = () => {
                         <option value={30}>30</option>
                     </select>
                 </div>
-                <ComponentWrapper>
+                <AddressListItems>
                     {addresses.map(item => {
                         return (
                             <ItemWrapper key={item.zipcode}>
@@ -69,7 +70,7 @@ const Addresses = () => {
                             </ItemWrapper>
                         );
                     })}
-                </ComponentWrapper>
+                </AddressListItems>
             </Page>
         </Container>
     );
@@ -102,7 +103,7 @@ const Page = styled.div`
     }
 `;
 
-const ComponentWrapper = styled.div`
+const AddressListItems = styled.div`
     width: 100%;
     display: flex;
     flex-wrap: wrap;

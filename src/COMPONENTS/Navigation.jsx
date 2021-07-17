@@ -2,8 +2,6 @@ import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { ImBooks } from 'react-icons/im';
 import { FaRegAddressBook, FaSignInAlt } from 'react-icons/fa';
-import { AiFillHome } from 'react-icons/ai';
-import { CgProfile } from 'react-icons/cg';
 
 const Navigation = () => {
     return (
@@ -13,17 +11,11 @@ const Navigation = () => {
                 Sidebar
             </h2>
             <hr />
-            <NavLink to='/home'>
-                <AiFillHome /> Home
-            </NavLink>
             <NavLink to='/address'>
                 <FaRegAddressBook /> Address
             </NavLink>
             <NavLink to='/books'>
                 <ImBooks /> Books
-            </NavLink>
-            <NavLink to='/profile'>
-                <CgProfile /> Profile
             </NavLink>
             <NavLink exact to='/'>
                 <FaSignInAlt /> SignIn
