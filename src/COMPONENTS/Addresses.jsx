@@ -1,14 +1,11 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import styled from 'styled-components';
 
+import { AddressContext } from '../CONTEXT/AddressContext';
 import Navigation from './Navigation';
-import { AddressApi } from '../SERVICES/AddressApi';
-import { useEffect } from 'react';
 
 const Addresses = () => {
-    const [itemsNumber, setItmsNumber] = useState(10);
-    const [addresses, setAddresses] = useState([]);
-    const [oldAddresses, setOldAddresses] = useState([]);
+    const { addresses, setAddresses, oldAddresses, setItmsNumber } = useContext(AddressContext);
 
     function debounce(func, timeout = 500) {
         let timer;
@@ -23,19 +20,6 @@ const Addresses = () => {
     const onSelectChange = event => {
         setItmsNumber(event.target.value);
     };
-
-    //elodeba monacemebis chamotvirtvas
-    const loadAddresses = async () => {
-        const addressList = await AddressApi({ quantity: itemsNumber });
-
-        setAddresses(addressList);
-        setOldAddresses(addressList);
-    };
-
-    useEffect(() => {
-        loadAddresses();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [itemsNumber]);
 
     const onSearch = debounce(({ target }) => {
         const filteredAddresses = oldAddresses.filter(

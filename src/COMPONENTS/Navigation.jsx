@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { ImBooks } from 'react-icons/im';
 import { FaRegAddressBook, FaSignInAlt } from 'react-icons/fa';
+import { AiFillFileAdd } from 'react-icons/ai';
+import { ImBooks } from 'react-icons/im';
+import { BiBookAdd } from 'react-icons/bi';
 
 const Navigation = () => {
     return (
@@ -11,12 +13,22 @@ const Navigation = () => {
                 Sidebar
             </h2>
             <hr />
-            <NavLink to='/address'>
-                <FaRegAddressBook /> Address
+            <NavLink to='/addresses'>
+                <FaRegAddressBook /> Addresses
             </NavLink>
+
+            <NavLink to='/add-address'>
+                <AiFillFileAdd /> Add Address
+            </NavLink>
+
             <NavLink to='/books'>
                 <ImBooks /> Books
             </NavLink>
+
+            <NavLink to='/add-book'>
+                <BiBookAdd /> Add Book
+            </NavLink>
+
             <NavLink exact to='/'>
                 <FaSignInAlt /> SignIn
             </NavLink>
@@ -29,7 +41,7 @@ export default Navigation;
 const Container = styled.div`
     color: white;
     width: 280px;
-    height: 100vh - 32px;
+    height: calc(100vh - 32px);
     padding: 16px;
     background-color: #212529;
     display: flex;
