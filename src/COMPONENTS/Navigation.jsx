@@ -1,11 +1,20 @@
+import { useContext } from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { FaRegAddressBook, FaSignInAlt } from 'react-icons/fa';
+import { FaRegAddressBook, FaSignInAlt, FaSignOutAlt } from 'react-icons/fa';
 import { AiFillFileAdd } from 'react-icons/ai';
 import { ImBooks } from 'react-icons/im';
 import { BiBookAdd } from 'react-icons/bi';
 
+import { userContext } from '../CONTEXT/UsersContext';
+
 const Navigation = () => {
+    const { isVerified, setIsVerified } = useContext(userContext);
+
+    const onAClick = () => {
+        setIsVerified(false);
+    };
+
     return (
         <Container id='navigation'>
             <h2>
@@ -29,9 +38,15 @@ const Navigation = () => {
                 <BiBookAdd /> Add Book
             </NavLink>
 
-            <NavLink exact to='/'>
-                <FaSignInAlt /> SignIn
-            </NavLink>
+            {!isVerified ? (
+                <NavLink exact to='/'>
+                    <FaSignInAlt /> Sign In
+                </NavLink>
+            ) : (
+                <a href='/' onClick={onAClick}>
+                    <FaSignOutAlt /> Sign Out
+                </a>
+            )}
         </Container>
     );
 };
