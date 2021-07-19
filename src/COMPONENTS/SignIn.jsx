@@ -36,7 +36,7 @@ const SignIn = () => {
         for (let i = 0; i < user.length; i++) {
             if (user[i].email === initialValue.email && user[i].password === initialValue.password) {
                 setIsVerified(true);
-                history.push('/home');
+                history.push('/addresses');
                 break;
             } else if (i === user.length - 1) {
                 alert('Email or Password is incorect!');

@@ -1,21 +1,13 @@
+import { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
-import { useEffect, useState } from 'react';
 
 import Navigation from './Navigation';
-import BooksApi from '../SERVICES/BooksApi';
+import { BooksContext } from '../CONTEXT/BooksContext';
 
 const Books = () => {
-    const [books, setBooks] = useState([]);
-    const [reverseSorted, setReverseSorted] = useState(false);
-
-    const LoadBooks = async () => {
-        const booksList = await BooksApi({ quantity: 10, characters: 500 });
-        setBooks(booksList);
-    };
-
-    useEffect(() => {
-        LoadBooks();
-    }, []);
+    const history = useHistory();
+    const { books, reverseSorted, setReverseSorted } = useContext(BooksContext);
 
     const sortingToTheOld = () => {
         setReverseSorted(false);
@@ -23,7 +15,9 @@ const Books = () => {
     const sortingToTheNew = () => {
         setReverseSorted(true);
     };
-    const jumpIntoBookAddingPage = () => {};
+    const jumpIntoBookAddingPage = () => {
+        history.push('/add-book');
+    };
 
     return (
         <Container>
@@ -80,16 +74,7 @@ const Page = styled.div`
         margin: 10px 0;
 
         button {
-            color: white;
-            background-color: #0d6efd;
             margin: 0 10px;
-            padding: 10px 15px;
-            border-radius: 5px;
-            border: none;
-
-            &:active {
-                box-shadow: rgba(0, 0, 0, 0.35) 1px 1px 5px 0px inset;
-            }
         }
     }
 `;
@@ -105,14 +90,14 @@ const BooksListItems = styled.div`
 
 const BookWrapper = styled.div`
     width: 330px;
-    height: auto;
+    height: 703px;
     padding: 5px;
     margin: 5px 10px;
     color: white;
     background-color: #212529;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
 
     img {
         width: 100%;

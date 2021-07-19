@@ -1,10 +1,12 @@
 import { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { AddressContext } from '../CONTEXT/AddressContext';
 import Navigation from './Navigation';
 
 const Addresses = () => {
+    const history = useHistory();
     const { addresses, setAddresses, oldAddresses, setItmsNumber } = useContext(AddressContext);
 
     function debounce(func, timeout = 500) {
@@ -30,12 +32,17 @@ const Addresses = () => {
         setAddresses(filteredAddresses);
     }, 900);
 
+    const onButtonClick = () => {
+        history.push('/add-address');
+    };
+
     return (
         <Container>
             <Navigation />
             <Page>
                 <div id='ragac'>
                     <input type='text' placeholder='Filter for City or Country' onChange={onSearch} />
+                    <button onClick={onButtonClick}>Add Address</button>
                     <select title='Quantity' onChange={onSelectChange}>
                         <option value={10}>10</option>
                         <option value={20}>20</option>
@@ -91,14 +98,14 @@ const AddressListItems = styled.div`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: baseline;
+    align-items: flex-start;
+    justify-content: space-evenly;
     overflow-y: scroll;
 `;
 
 const ItemWrapper = styled.div`
-    min-width: 250px;
-    height: 300px;
+    width: 230px;
+    min-height: 350px;
     padding: 0 10px;
     margin: 10px;
     color: white;

@@ -46,4 +46,17 @@ function App() {
 
 export default App;
 
-const Container = styled.div``;
+const Container = styled.div`
+    button {
+        color: white;
+        background-color: #0d6efd;
+        /* margin: 15px 10px; */
+        padding: 10px 15px;
+        border-radius: 5px;
+        border: none;
+
+        &:active {
+            box-shadow: rgba(0, 0, 0, 0.35) 1px 1px 5px 0px inset;
+        }
+    }
+`;

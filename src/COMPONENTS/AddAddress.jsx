@@ -1,16 +1,19 @@
 import { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { AddressContext } from '../CONTEXT/AddressContext';
 import Navigation from './Navigation';
 
 const AddAddress = () => {
+    const history = useHistory();
     const { initialValue, addresses, setAddresses } = useContext(AddressContext);
 
     const onSubmit = event => {
         event.preventDefault();
         const newList = [...addresses, initialValue];
         setAddresses(newList);
+        history.push('/addresses');
     };
 
     const onInputChange = event => {
@@ -46,7 +49,7 @@ const AddAddress = () => {
                     <input type='text' name='zipcode' onChange={onInputChange} required />
                 </div>
 
-                <button>Add Address</button>
+                <button type='submit'>Add Address</button>
             </Page>
         </Container>
     );
@@ -78,15 +81,6 @@ const Page = styled.form`
     }
 
     button {
-        color: white;
-        background-color: #0d6efd;
         margin: 15px 10px;
-        padding: 10px 15px;
-        border-radius: 5px;
-        border: none;
-
-        &:active {
-            box-shadow: rgba(0, 0, 0, 0.35) 1px 1px 5px 0px inset;
-        }
     }
 `;
