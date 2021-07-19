@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
+import withAuthProtection from '../../HOC/withAuthProtection';
 import { AddressContext } from '../../CONTEXT/AddressContext';
 import Navigation from '../Navigation';
 
@@ -55,7 +56,7 @@ const AddAddress = () => {
     );
 };
 
-export default AddAddress;
+export default withAuthProtection(AddAddress);
 
 const Container = styled.div`
     display: flex;

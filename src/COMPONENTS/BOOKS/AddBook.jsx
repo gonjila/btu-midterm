@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
+import withAuthProtection from '../../HOC/withAuthProtection';
 import Navigation from '../Navigation';
 import { BooksContext } from '../../CONTEXT/BooksContext';
 
@@ -56,7 +57,7 @@ const AddBook = () => {
     );
 };
 
-export default AddBook;
+export default withAuthProtection(AddBook);
 
 const Container = styled.div`
     display: flex;

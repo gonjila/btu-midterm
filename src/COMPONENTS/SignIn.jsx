@@ -43,6 +43,9 @@ const SignIn = () => {
             }
         }
     };
+    const onLaterClick = () => {
+        history.push('/addresses');
+    };
 
     return (
         <Container onSubmit={formSubmit}>
@@ -58,9 +61,15 @@ const SignIn = () => {
                     <label htmlFor='Remember me'>Remember me</label>
                 </div>
             </div>
-            <button id='submitButton' type='button' onClick={onSignInClick}>
-                Sign in
-            </button>
+
+            <div id='buttons'>
+                <button type='button' onClick={onSignInClick}>
+                    Sign in
+                </button>
+                <button type='button' onClick={onLaterClick}>
+                    Later
+                </button>
+            </div>
         </Container>
     );
 };
@@ -113,15 +122,14 @@ const Container = styled.form`
         }
     }
 
-    #submitButton {
-        font-size: 20px;
-        height: 50px;
-        width: 300px;
-        color: white;
-        background-color: #0d6efd;
-        border: none;
-        &:active {
-            box-shadow: rgba(0, 0, 0, 0.35) 2px 2px 5px 0px inset;
+    #buttons {
+        width: 20%;
+        display: flex;
+
+        button {
+            font-size: 16px;
+            width: 50%;
+            margin: 0 15px;
         }
     }
 `;
