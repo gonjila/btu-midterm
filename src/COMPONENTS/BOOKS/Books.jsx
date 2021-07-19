@@ -2,8 +2,9 @@ import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Navigation from './Navigation';
-import { BooksContext } from '../CONTEXT/BooksContext';
+import Navigation from '../Navigation';
+import { BooksContext } from '../../CONTEXT/BooksContext';
+import SingleBook from './SingleBook';
 
 const Books = () => {
     const history = useHistory();
@@ -40,16 +41,7 @@ const Books = () => {
                                 : 1
                         )
                         .map(item => {
-                            return (
-                                <BookWrapper key={item.isbn}>
-                                    <img alt={item.title} src={item.image} />
-                                    <h2>{item.title}</h2>
-                                    <h4>{item.author}</h4>
-                                    <h6>{item.genre}</h6>
-                                    <p>{item.description}</p>
-                                    <p>{item.published}</p>
-                                </BookWrapper>
-                            );
+                            return <SingleBook item={item} />;
                         })}
                 </BooksListItems>
             </Page>
@@ -86,30 +78,4 @@ const BooksListItems = styled.div`
     align-items: center;
     justify-content: space-evenly;
     overflow-y: scroll;
-`;
-
-const BookWrapper = styled.div`
-    width: 330px;
-    height: 703px;
-    padding: 5px;
-    margin: 5px 10px;
-    color: white;
-    background-color: #212529;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-
-    img {
-        width: 100%;
-        height: 400px;
-    }
-    h2 {
-        margin: 10px 0 5px;
-    }
-    h4 {
-        margin: 10px 0;
-    }
-    h6 {
-        margin: 5px 0;
-    }
 `;

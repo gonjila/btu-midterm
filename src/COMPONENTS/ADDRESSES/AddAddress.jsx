@@ -2,8 +2,8 @@ import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { AddressContext } from '../CONTEXT/AddressContext';
-import Navigation from './Navigation';
+import { AddressContext } from '../../CONTEXT/AddressContext';
+import Navigation from '../Navigation';
 
 const AddAddress = () => {
     const history = useHistory();

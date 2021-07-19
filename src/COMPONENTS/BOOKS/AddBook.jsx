@@ -2,8 +2,8 @@ import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
-import Navigation from './Navigation';
-import { BooksContext } from '../CONTEXT/BooksContext';
+import Navigation from '../Navigation';
+import { BooksContext } from '../../CONTEXT/BooksContext';
 
 const AddBook = () => {
     const history = useHistory();
@@ -14,6 +14,7 @@ const AddBook = () => {
         const newList = [...books, initialValue];
         setBooks(newList);
         history.push('/books');
+        console.log('target', event.target);
     };
 
     const onChange = ({ target }) => {
@@ -25,28 +26,28 @@ const AddBook = () => {
             <Navigation />
             <Page onSubmit={onFormSubmit}>
                 <div>
-                    <label>Image source:</label>
-                    <input type='url' name='image' onChange={onChange} required />
+                    <label htmlFor='image'>Image source:</label>
+                    <input id='image' type='url' name='image' onChange={onChange} />
                 </div>
                 <div>
-                    <label>Title:</label>
-                    <input type='text' name='title' onChange={onChange} required />
+                    <label htmlFor='title'>Title:</label>
+                    <input id='title' type='text' name='title' onChange={onChange} />
                 </div>
                 <div>
-                    <label>Author:</label>
-                    <input type='text' name='author' onChange={onChange} required />
+                    <label htmlFor='author'>Author:</label>
+                    <input id='author' type='text' name='author' onChange={onChange} />
                 </div>
                 <div>
-                    <label>Genre:</label>
-                    <input type='text' name='genre' onChange={onChange} required />
+                    <label htmlFor='genre'>Genre:</label>
+                    <input id='genre' type='text' name='genre' onChange={onChange} />
                 </div>
                 <div>
-                    <label>Description:</label>
-                    <input type='text' name='description' onChange={onChange} required />
+                    <label htmlFor='description'>Description:</label>
+                    <input id='description' type='text' name='description' onChange={onChange} />
                 </div>
                 <div>
-                    <label>Published:</label>
-                    <input type='date' name='published' onChange={onChange} required />
+                    <label htmlFor='published'>Published:</label>
+                    <input id='published' type='date' name='published' onChange={onChange} />
                 </div>
 
                 <button type='submit'>Add Book</button>

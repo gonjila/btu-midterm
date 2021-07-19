@@ -2,10 +2,10 @@ import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 
 import UsersProviderComponent from './CONTEXT/UsersContext';
-import Addresses from './COMPONENTS/Addresses';
-import AddAddress from './COMPONENTS/AddAddress';
-import Books from './COMPONENTS/Books';
-import AddBook from './COMPONENTS/AddBook';
+import Addresses from './COMPONENTS/ADDRESSES/Addresses';
+import AddAddress from './COMPONENTS/ADDRESSES/AddAddress';
+import Books from './COMPONENTS/BOOKS/Books';
+import AddBook from './COMPONENTS/BOOKS/AddBook';
 import SignIn from './COMPONENTS/SignIn';
 import AddressProviderComponent from './CONTEXT/AddressContext.jsx';
 import BooksProviderComponent from './CONTEXT/BooksContext.jsx';
