@@ -160,6 +160,7 @@ const Container = styled.form`
         }
     }
     #registration {
+        font-size: 14px;
         position: absolute;
         top: 30px;
         right: 70px;

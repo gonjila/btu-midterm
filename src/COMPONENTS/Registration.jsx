@@ -57,7 +57,7 @@ const Registration = () => {
             </div>
 
             <div id='buttons'>
-                <button type='button' onClick={onSignInClick}>
+                <button id='signIn' type='button' onClick={onSignInClick}>
                     Sign in
                 </button>
                 <button type='button' id='registration' onClick={onRegisterClick}>
@@ -126,8 +126,15 @@ const Container = styled.form`
             min-width: 100px;
             margin: 0 15px;
         }
+        #signIn {
+            font-size: 14px;
+            position: absolute;
+            top: 30px;
+            left: 70px;
+        }
         #registration {
-            min-width: 115px;
+            letter-spacing: 1.3px;
+            min-width: 155px;
         }
     }
 `;
