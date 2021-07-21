@@ -44,9 +44,9 @@ const Addresses = () => {
                     <input type='text' placeholder='Filter for City or Country' onChange={onSearch} />
                     <button onClick={onButtonClick}>Add Address</button>
                     <select title='Quantity' onChange={onSelectChange}>
-                        <option value={10}>10</option>
-                        <option value={20}>20</option>
-                        <option value={30}>30</option>
+                        <option value={12}>12</option>
+                        <option value={24}>24</option>
+                        <option value={36}>36</option>
                     </select>
                 </div>
                 <AddressListItems>

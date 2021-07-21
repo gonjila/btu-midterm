@@ -6,9 +6,9 @@ import { userContext } from '../CONTEXT/UsersContext';
 
 const SignIn = () => {
     const history = useHistory();
-
     const { user, setIsVerified, initialValue } = useContext(userContext);
 
+    //ამაში ჩასმული ფუნქციის ცვლილება არ ანახლებს მაშინვე საიტს.
     function debounce(func, timeout = 500) {
         let timer;
         return (...args) => {
@@ -25,26 +25,53 @@ const SignIn = () => {
 
     const emailWhenSubmit = debounce(event => {
         initialValue.email = event.target.value;
-        console.log(initialValue);
-    }, 2000);
+        // console.log(initialValue);
+    }, 1000);
     const passwordWhenSubmit = debounce(event => {
         initialValue.password = event.target.value;
-        console.log(initialValue);
+        // console.log(initialValue);
     }, 500);
 
     const onSignInClick = () => {
-        for (let i = 0; i < user.length; i++) {
-            if (user[i].email === initialValue.email && user[i].password === initialValue.password) {
-                setIsVerified(true);
-                history.push('/addresses');
-                break;
-            } else if (i === user.length - 1) {
-                alert('Email or Password is incorect!');
+        //ამოწმებს თუ არის localStorageში inputებში ჩაწერილი მეილი და პაროლი.
+        const checking1 = () => {
+            for (let j = 0; j < localStorage.length; j++) {
+                const localUserName = localStorage.key(j);
+                const localUserPass = localStorage.getItem(localUserName);
+
+                if (localUserName === initialValue.email && localUserPass === initialValue.password) {
+                    return true;
+                } else {
+                    return false;
+                }
             }
+        };
+        //ამოწმებს თუ არის სერვერიდან ატვირთულ ინფორმაციაში inputებში ჩაწერილი მეილი და პაროლი.
+        const checking2 = () => {
+            for (let i = 0; i < user.length; i++) {
+                if (user[i].email === initialValue.email && user[i].password === initialValue.password) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        };
+
+        //თუ ერთ-ერთში არის მაშინ გადაჰყავხარ საიტზე.
+        if (checking1() || checking2()) {
+            setIsVerified(true);
+            history.push('/addresses');
+        } else {
+            alert('Email or Password is incorect!');
         }
     };
+
     const onLaterClick = () => {
         history.push('/addresses');
+    };
+
+    const onRegisterClick = async () => {
+        history.push('/registration');
     };
 
     return (
@@ -56,10 +83,6 @@ const SignIn = () => {
             <div id='inputs'>
                 <input id='email' type='email' placeholder='Email address' onChange={emailWhenSubmit} />
                 <input id='password' type='password' placeholder='Password' onChange={passwordWhenSubmit} />
-                <div id='checkboxWrapper'>
-                    <input type='checkbox' name='Remember me' id='checkbox'></input>
-                    <label htmlFor='Remember me'>Remember me</label>
-                </div>
             </div>
 
             <div id='buttons'>
@@ -70,6 +93,9 @@ const SignIn = () => {
                     Later
                 </button>
             </div>
+            <button type='button' id='registration' onClick={onRegisterClick}>
+                registration
+            </button>
         </Container>
     );
 };
@@ -125,11 +151,17 @@ const Container = styled.form`
     #buttons {
         width: 20%;
         display: flex;
+        justify-content: center;
 
         button {
             font-size: 16px;
-            width: 50%;
+            min-width: 100px;
             margin: 0 15px;
         }
+    }
+    #registration {
+        position: absolute;
+        top: 30px;
+        right: 70px;
     }
 `;

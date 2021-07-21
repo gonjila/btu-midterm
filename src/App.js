@@ -9,6 +9,7 @@ import AddBook from './COMPONENTS/BOOKS/AddBook';
 import SignIn from './COMPONENTS/SignIn';
 import AddressProviderComponent from './CONTEXT/AddressContext.jsx';
 import BooksProviderComponent from './CONTEXT/BooksContext.jsx';
+import Registration from './COMPONENTS/Registration';
 
 function App() {
     return (
@@ -33,8 +34,12 @@ function App() {
                                 <AddBook />
                             </Route>
 
-                            <Route exact={true} path='/'>
+                            <Route exact path='/'>
                                 <SignIn />
+                            </Route>
+
+                            <Route exact path='/registration'>
+                                <Registration />
                             </Route>
                         </Switch>
                     </BooksProviderComponent>

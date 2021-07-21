@@ -1,17 +1,25 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
+
+import UserApi from '../SERVICES/UserApi';
 
 export const userContext = createContext([]);
 
-const users = [
-    { email: 'lasha@yahoo.com', password: 'lasha' },
-    { email: 'gonjila@yahoo.com', password: 'gonjila' },
-    { email: 'g@y', password: 'g' },
-];
 const UsersProviderComponent = ({ children }) => {
-    const [user, setUser] = useState(users);
+    const [user, setUser] = useState([]);
     const [isVerified, setIsVerified] = useState(false);
 
-    const initialValue = { email: '', password: '' };
+    const initialValue = { email: null, password: null };
+
+    const loadUsers = async () => {
+        const usersList = await UserApi();
+        setUser(usersList);
+    };
+
+    useEffect(() => {
+        loadUsers();
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     return (
         <userContext.Provider value={{ user, setUser, isVerified, setIsVerified, initialValue }}>

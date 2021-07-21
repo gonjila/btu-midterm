@@ -15,7 +15,7 @@ const SingleBook = ({ item }) => {
     };
 
     return (
-        <BookWrapper key={item.isbn}>
+        <BookWrapper>
             <img alt={item.title} src={item.image} />
             <h2>{item.title}</h2>
             <h4>{item.author}</h4>

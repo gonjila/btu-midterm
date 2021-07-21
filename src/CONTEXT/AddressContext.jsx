@@ -5,7 +5,7 @@ import { AddressApi } from '../SERVICES/AddressApi';
 export const AddressContext = createContext(null);
 
 const AddressProviderComponent = ({ children }) => {
-    const [itemsNumber, setItmsNumber] = useState(10);
+    const [itemsNumber, setItmsNumber] = useState(12);
     const [addresses, setAddresses] = useState([]);
     const [oldAddresses, setOldAddresses] = useState([]);
 

@@ -41,7 +41,7 @@ const Books = () => {
                                 : 1
                         )
                         .map(item => {
-                            return <SingleBook item={item} />;
+                            return <SingleBook key={item.isbn} item={item} />;
                         })}
                 </BooksListItems>
             </Page>
