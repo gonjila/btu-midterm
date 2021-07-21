@@ -1,15 +1,17 @@
+import React from 'react';
 import styled from 'styled-components';
 import { Switch, Route } from 'react-router-dom';
 
 import UsersProviderComponent from './CONTEXT/UsersContext';
-import Addresses from './COMPONENTS/ADDRESSES/Addresses';
-import AddAddress from './COMPONENTS/ADDRESSES/AddAddress';
-import Books from './COMPONENTS/BOOKS/Books';
-import AddBook from './COMPONENTS/BOOKS/AddBook';
-import SignIn from './COMPONENTS/SignIn';
 import AddressProviderComponent from './CONTEXT/AddressContext.jsx';
 import BooksProviderComponent from './CONTEXT/BooksContext.jsx';
-import Registration from './COMPONENTS/Registration';
+import SignIn from './COMPONENTS/SignIn';
+
+const Addresses = React.lazy(import('./COMPONENTS/ADDRESSES/Addresses'));
+const AddAddress = React.lazy(import('./COMPONENTS/ADDRESSES/AddAddress'));
+const Books = React.lazy(import('./COMPONENTS/BOOKS/Books'));
+const AddBook = React.lazy(import('./COMPONENTS/BOOKS/AddBook'));
+const Registration = React.lazy(import('./COMPONENTS/Registration'));
 
 function App() {
     return (
