@@ -8,6 +8,7 @@ const Registration = () => {
     const history = useHistory();
     const { user, setUser, setIsVerified, initialValue } = useContext(userContext);
 
+    //ამაში ჩასმული ფუნქციის ცვლილება მაშინვე არ ანახლებს საიტს.
     function debounce(func, timeout = 500) {
         let timer;
         return (...args) => {
@@ -22,10 +23,12 @@ const Registration = () => {
         event.preventDefault();
     };
 
+    //inputში ჩაწერილი ტექსტი შეაქვს objectში
     const emailWhenSubmit = debounce(event => {
         initialValue.email = event.target.value;
         // console.log(initialValue);
     }, 1000);
+    //inputში ჩაწერილი ტექსტი შეაქვს objectში
     const passwordWhenSubmit = debounce(event => {
         initialValue.password = event.target.value;
         // console.log(initialValue);
@@ -35,6 +38,8 @@ const Registration = () => {
         history.push('/');
     };
 
+    //რეგისტრაციის ღილაკზე დაჭერით, თუ emailისა და passwordის ველში ჩაწერილია რამე,
+    //მაშინ userის stateს უერთებს emailითა და passwordით შექმნილ objectს.
     const onRegisterClick = () => {
         if (initialValue.email && initialValue.password) {
             setUser([...user, initialValue]);

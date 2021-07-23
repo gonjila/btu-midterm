@@ -8,7 +8,7 @@ const SignIn = () => {
     const history = useHistory();
     const { user, setIsVerified, initialValue } = useContext(userContext);
 
-    //ამაში ჩასმული ფუნქციის ცვლილება არ ანახლებს მაშინვე საიტს.
+    //ამაში ჩასმული ფუნქციის ცვლილება მაშინვე არ ანახლებს საიტს.
     function debounce(func, timeout = 500) {
         let timer;
         return (...args) => {
