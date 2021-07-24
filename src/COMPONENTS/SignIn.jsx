@@ -63,9 +63,12 @@ const SignIn = () => {
             <div id='inputs'>
                 <input
                     id='email'
-                    type='email'
+                    type='text'
                     placeholder='Email address'
-                    {...register('email', { required: 'Email input is required!' })}
+                    {...register('email', {
+                        required: 'Email input is required!',
+                        pattern: { value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/, message: 'Email is not valid.' },
+                    })}
                 />
                 <input
                     id='password'

@@ -43,9 +43,12 @@ const Registration = () => {
             <div id='inputs'>
                 <input
                     id='email'
-                    type='email'
+                    type='text'
                     placeholder='Email address'
-                    {...register('email', { required: 'Email is required!' })}
+                    {...register('email', {
+                        required: 'Email is required!',
+                        pattern: { value: /^[^@ ]+@[^@ ]+\.[^@ .]{2,}$/, message: 'Email is not valid.' },
+                    })}
                 />
                 <input
                     id='password'
