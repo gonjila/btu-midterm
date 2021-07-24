@@ -1,72 +1,76 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 
 import { userContext } from '../CONTEXT/UsersContext';
 
 const Registration = () => {
     const history = useHistory();
-    const { user, setUser, setIsVerified, initialValue } = useContext(userContext);
+    const { user, setUser, setIsVerified } = useContext(userContext);
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm();
 
-    //ამაში ჩასმული ფუნქციის ცვლილება მაშინვე არ ანახლებს საიტს.
-    function debounce(func, timeout = 500) {
-        let timer;
-        return (...args) => {
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-                func.apply(this, args);
-            }, timeout);
-        };
-    }
+    const formSubmit = data => {
+        console.log(data);
 
-    const formSubmit = event => {
-        event.preventDefault();
+        //რეგისტრაციის ღილაკზე დაჭერით, თუ emailისა და passwordის ველში ჩაწერილია რამე,
+        //მაშინ userის stateს უერთებს emailითა და passwordით შექმნილ objectს.
+        if (data.email && data.password) {
+            setUser([...user, data]);
+            setIsVerified(true);
+            // history.push('/addresses');
+
+            if (data.checkBox) {
+                localStorage.setItem(data.email, data.password);
+            }
+        }
     };
-
-    //inputში ჩაწერილი ტექსტი შეაქვს objectში
-    const emailWhenSubmit = debounce(event => {
-        initialValue.email = event.target.value;
-        // console.log(initialValue);
-    }, 1000);
-    //inputში ჩაწერილი ტექსტი შეაქვს objectში
-    const passwordWhenSubmit = debounce(event => {
-        initialValue.password = event.target.value;
-        // console.log(initialValue);
-    }, 500);
 
     const onSignInClick = () => {
         history.push('/');
     };
 
-    //რეგისტრაციის ღილაკზე დაჭერით, თუ emailისა და passwordის ველში ჩაწერილია რამე,
-    //მაშინ userის stateს უერთებს emailითა და passwordით შექმნილ objectს.
-    const onRegisterClick = () => {
-        if (initialValue.email && initialValue.password) {
-            setUser([...user, initialValue]);
-            setIsVerified(true);
-            // history.push('/addresses');
-
-            localStorage.setItem(initialValue.email, initialValue.password);
-        }
-    };
-
     return (
-        <Container onSubmit={formSubmit}>
+        <Container onSubmit={handleSubmit(formSubmit)}>
             <div>
                 <img alt='react icon' src='favicon.ico' />
             </div>
             <h2>Registration</h2>
             <div id='inputs'>
-                <input id='email' type='email' placeholder='Email address' onChange={emailWhenSubmit} />
-                <input id='password' type='password' placeholder='Password' onChange={passwordWhenSubmit} />
+                <input
+                    id='email'
+                    type='email'
+                    placeholder='Email address'
+                    {...register('email', { required: 'Email is required!' })}
+                />
+                <input
+                    id='password'
+                    type='password'
+                    placeholder='Password'
+                    {...register('password', {
+                        required: 'Password is required!',
+                        maxLength: { value: 9, message: 'Please enter maximum 9 character' },
+                    })}
+                />
+                <div id='checkboxWrapper'>
+                    <input id='checkBox' type='checkbox' {...register('checkBox')} />
+                    <label htmlFor='checkBox'>Save in LocalStorage</label>
+                </div>
+
+                {errors.email && <p>{errors.email.message}</p>}
+                {errors.password && <p>{errors.password.message}</p>}
             </div>
 
             <div id='buttons'>
+                <button id='registration' type='submit'>
+                    registration
+                </button>
                 <button id='signIn' type='button' onClick={onSignInClick}>
                     Sign in
-                </button>
-                <button type='button' id='registration' onClick={onRegisterClick}>
-                    registration
                 </button>
             </div>
         </Container>
@@ -99,6 +103,26 @@ const Container = styled.form`
             height: 25px;
             width: 275px;
             padding: 1rem 0.75rem;
+        }
+
+        #checkboxWrapper {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            input {
+                width: 50px;
+            }
+        }
+
+        p {
+            color: red;
+            font-weight: 600;
+
+            &:not(:last-child) {
+                margin: 0;
+            }
         }
 
         #email {

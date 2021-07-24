@@ -1,58 +1,39 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
+import { useForm } from 'react-hook-form';
+import { ErrorMessage } from '@hookform/error-message';
 import styled from 'styled-components';
 
 import { userContext } from '../CONTEXT/UsersContext';
 
 const SignIn = () => {
     const history = useHistory();
-    const { user, setIsVerified, initialValue } = useContext(userContext);
+    const { user, setIsVerified } = useContext(userContext);
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm();
 
-    //ამაში ჩასმული ფუნქციის ცვლილება მაშინვე არ ანახლებს საიტს.
-    function debounce(func, timeout = 500) {
-        let timer;
-        return (...args) => {
-            clearTimeout(timer);
-            timer = setTimeout(() => {
-                func.apply(this, args);
-            }, timeout);
-        };
-    }
+    const onSubmit = data => {
+        console.log(data);
 
-    const formSubmit = event => {
-        event.preventDefault();
-    };
-
-    const emailWhenSubmit = debounce(event => {
-        initialValue.email = event.target.value;
-        // console.log(initialValue);
-    }, 1000);
-    const passwordWhenSubmit = debounce(event => {
-        initialValue.password = event.target.value;
-        // console.log(initialValue);
-    }, 500);
-
-    const onSignInClick = () => {
         //ამოწმებს თუ არის localStorageში inputებში ჩაწერილი მეილი და პაროლი.
         const checking1 = () => {
             for (let j = 0; j < localStorage.length; j++) {
                 const localUserName = localStorage.key(j);
                 const localUserPass = localStorage.getItem(localUserName);
 
-                if (localUserName === initialValue.email && localUserPass === initialValue.password) {
+                if (localUserName === data.email && localUserPass === data.password) {
                     return true;
-                } else {
-                    return false;
                 }
             }
         };
         //ამოწმებს თუ არის სერვერიდან ატვირთულ ინფორმაციაში inputებში ჩაწერილი მეილი და პაროლი.
         const checking2 = () => {
             for (let i = 0; i < user.length; i++) {
-                if (user[i].email === initialValue.email && user[i].password === initialValue.password) {
+                if (user[i].email === data.email && user[i].password === data.password) {
                     return true;
-                } else {
-                    return false;
                 }
             }
         };
@@ -75,20 +56,33 @@ const SignIn = () => {
     };
 
     return (
-        <Container onSubmit={formSubmit}>
+        <Container onSubmit={handleSubmit(onSubmit)}>
             <div>
                 <img alt='react icon' src='favicon.ico' />
             </div>
             <h2>Please sign in</h2>
             <div id='inputs'>
-                <input id='email' type='email' placeholder='Email address' onChange={emailWhenSubmit} />
-                <input id='password' type='password' placeholder='Password' onChange={passwordWhenSubmit} />
+                <input
+                    id='email'
+                    type='email'
+                    placeholder='Email address'
+                    {...register('email', { required: 'Email input is required!' })}
+                />
+                <input
+                    id='password'
+                    type='password'
+                    placeholder='Password'
+                    {...register('password', {
+                        required: 'Password input is required!',
+                        maxLength: { value: 9, message: 'Please enter maximum 9 character' },
+                    })}
+                />
+                {errors.email && <p>{errors.email.message}</p>}
+                <ErrorMessage errors={errors} name='password' render={({ message }) => <p>{message}</p>} />
             </div>
 
             <div id='buttons'>
-                <button type='button' onClick={onSignInClick}>
-                    Sign in
-                </button>
+                <button type='submit'>Sign in</button>
                 <button type='button' onClick={onLaterClick}>
                     Later
                 </button>
@@ -126,6 +120,14 @@ const Container = styled.form`
             height: 25px;
             width: 275px;
             padding: 1rem 0.75rem;
+        }
+
+        p {
+            color: red;
+            font-weight: 600;
+            &:not(:last-child) {
+                margin: 0;
+            }
         }
 
         #email {

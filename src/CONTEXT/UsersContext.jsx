@@ -8,8 +8,6 @@ const UsersProviderComponent = ({ children }) => {
     const [user, setUser] = useState([]);
     const [isVerified, setIsVerified] = useState(false);
 
-    const initialValue = { email: null, password: null };
-
     const loadUsers = async () => {
         const usersList = await UserApi();
         setUser(usersList);
@@ -22,7 +20,7 @@ const UsersProviderComponent = ({ children }) => {
     }, []);
 
     return (
-        <userContext.Provider value={{ user, setUser, isVerified, setIsVerified, initialValue }}>
+        <userContext.Provider value={{ user, setUser, isVerified, setIsVerified }}>
             {children}
         </userContext.Provider>
     );
