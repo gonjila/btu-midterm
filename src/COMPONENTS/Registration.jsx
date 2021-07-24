@@ -61,7 +61,7 @@ const Registration = () => {
                     <label htmlFor='checkBox'>Save in LocalStorage</label>
                 </div>
 
-                {errors.email && <p>{errors.email.message}</p>}
+                {errors.email?.message && <p>{errors.email.message}</p>}
                 {errors.password && <p>{errors.password.message}</p>}
             </div>
 

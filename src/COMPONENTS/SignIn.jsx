@@ -1,7 +1,6 @@
 import { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { ErrorMessage } from '@hookform/error-message';
 import styled from 'styled-components';
 
 import { userContext } from '../CONTEXT/UsersContext';
@@ -78,7 +77,7 @@ const SignIn = () => {
                     })}
                 />
                 {errors.email && <p>{errors.email.message}</p>}
-                <ErrorMessage errors={errors} name='password' render={({ message }) => <p>{message}</p>} />
+                {errors?.password && <p>{errors.password.message}</p>}
             </div>
 
             <div id='buttons'>
